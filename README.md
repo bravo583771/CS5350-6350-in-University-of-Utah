@@ -4,4 +4,4 @@
 # Data  
 
 ./DecisionTree/data/bank : https://archive.ics.uci.edu/ml/datasets/Bank+Marketing  
-./DecisionTree/data/car : (https://archive.ics.uci.edu/ml/datasets/car+evaluation  
+./DecisionTree/data/car : https://archive.ics.uci.edu/ml/datasets/car+evaluation  

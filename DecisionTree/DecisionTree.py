@@ -112,7 +112,7 @@ class DecisionTree(object):
                         split = self.trainx[:,split], children = np.delete(self.trainx,split,axis=1), labels = self.trainy,
                         depth = depth, max_depth = self.max_depth)
 
-        def build_tree(node, depth)-> None:
+        def build_tree(node, depth)-> treeNode:
             children_node = []
             depth += 1
             for (temp_x, temp_y) in node.children:
