@@ -1,2 +1,2 @@
 #!/bin/sh
-python Results.py
+python3 Results.py
