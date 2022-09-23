@@ -144,7 +144,11 @@ print(report.to_string(index=False))
 print("averages  : {}".format(error_table.mean(axis = 0)))
 print("\n")
 
+#mytree = DecisionTree(trainx = x, trainy = y, column = column, criterion = 'entropy', max_depth = 16, entropy_base = 16)
+#print("information gain from using duration as root is {}".format(mytree._IG(train_data.duration.to_numpy(), train_data.y.to_numpy())))
+#print("information gain from using poutcome as root is {}".format(mytree._IG(train_data.poutcome.to_numpy(), train_data.y.to_numpy())))
+#print("information gain from using month as root is {}".format(mytree._IG(train_data.month.to_numpy(), train_data.y.to_numpy())))
 mytree = DecisionTree(trainx = x, trainy = y, column = column, criterion = 'entropy', max_depth = 16, entropy_base = 16)
-print("information gain from using poutcome as root is {}".format(mytree._IG(train_data.poutcome.to_numpy(), train_data.y.to_numpy())))
-print("information gain from using month as root is {}".format(mytree._IG(train_data.month.to_numpy(), train_data.y.to_numpy())))
+for col in column:
+    print("information gain from using {} as root is {}".format(col, mytree._IG(train_data[col].to_numpy(), train_data.y.to_numpy())))
 print("-------------THE END-------------")
