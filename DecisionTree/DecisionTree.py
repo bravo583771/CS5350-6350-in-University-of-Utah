@@ -4,7 +4,9 @@ import numpy as np
 class treeNode(object):
     def __init__(self, split_name, column_name, split: np.ndarray, children: np.ndarray, labels: np.ndarray, depth: int, max_depth: int=6) -> None:
         self.split_name = split_name #column name of this node, like 'safe'
+        print(self.split_name)
         self.column_name = column_name #column names of children
+        print(self.column_name)
         self.end = True if np.unique(labels).shape[0] == 1 or depth==max_depth else False
         self.depth = depth
 
@@ -15,9 +17,11 @@ class treeNode(object):
             self.children.append((children[split == v,:], labels[split == v]))
             value, counts = np.unique(labels[split == v], return_counts=True)
             self.predict_value.append(value[np.argmax( counts)])
+            print("for {} = {}, majority label is {}({})".format(self.split_name, v, value[np.argmax( counts)], counts[np.argmax( counts)]/counts.sum()))
             #when the tree is end due to any reasons, the predict value will be the majority class y at this branch.
         value, counts = np.unique(labels, return_counts=True)
         self.predict_value.append(value[np.argmax( counts)]) #for x value not in self.children_value
+        print(self.predict_value)
             #observation not exist in training data. Happened in car prediction. 
             #A `person' node only has "2" "3" "4" branches, 
             #but test observation is "5more" 
@@ -55,7 +59,7 @@ class DecisionTree(object):
         if max_depth<1 or not isinstance(max_depth, int):
             raise ValueError("max_depth should be a positive integer.")
         self.criterion = criterion #"entropy", "gini", "me"
-        self.max_depth = np.minimum(column.shape[0], max_depth) #should be not larger than column.shape[0]
+        self.max_depth = min(column.shape[0], max_depth) #should be not larger than column.shape[0]
         self.tree = None
         self.trainx = trainx
         self.trainy = trainy
@@ -100,6 +104,7 @@ class DecisionTree(object):
         gain = np.zeros(n_feature)
         for i in range(n_feature):
             gain[i] = self._IG(datas[:,i], labels)
+        #print(gain)
         return np.argmax(gain)
 
     def fit(self) -> None:
@@ -107,24 +112,25 @@ class DecisionTree(object):
         #store the node
         #if depth < self.max_depth
             #recurse splitting by the node 
+        #print("\n")
+        #print(self.column)
         split = self._splitter(self.trainx, self.trainy)
         depth = 1
-        
         root = treeNode(split_name = self.column[split], column_name = np.delete(self.column, split, axis=0), 
                         split = self.trainx[:,split], children = np.delete(self.trainx,split,axis=1), labels = self.trainy,
                         depth = depth, max_depth = self.max_depth)
-
         def build_tree(node: treeNode, depth: int)-> treeNode:
             children_node = []
-            depth += 1
+            #depth += 1
             for (temp_x, temp_y) in node.children:
+                print(node.column_name)
                 split = self._splitter(temp_x, temp_y)
                 temp = treeNode(split_name = node.column_name[split], column_name = np.delete(node.column_name, split, axis=0), 
-                                split = temp_x[:,split], children = np.delete(temp_x,split,axis=1), labels = temp_y, 
-                                depth = depth, max_depth = self.max_depth)
+                                split = temp_x[:,split], children = np.delete(temp_x, split, axis=1), labels = temp_y, 
+                                depth = depth+1, max_depth = self.max_depth)
 
-                if depth <self.max_depth and not temp.end:
-                    temp = build_tree(temp, depth)
+                if depth <self.max_depth-1 and not temp.end:
+                    temp = build_tree(temp, depth+1)
                 children_node.append(temp)
             node._set_children_node(children_node)
             return node
