@@ -73,4 +73,4 @@ class linear_regression:
         return np.matmul(np.matmul(np.linalg.inv(np.matmul(x, x.transpose())), x), y)
     
     def predict(self, testx):
-        return np.matmul(np.c_[np.ones(self.n_sample), testx], self.w)
+        return np.matmul(np.c_[np.ones(testx.shape[0]), testx], self.w)

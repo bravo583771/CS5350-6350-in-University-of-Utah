@@ -16,9 +16,11 @@ other libraries: jupyter notebook, pathlib, matplotlib
 ./EnsembleLearning/data/bank : https://archive.ics.uci.edu/ml/datasets/Bank+Marketing  
 ./EnsembleLearning/data/credit_card : https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients  
 ./LinearRegression/data/concrete : https://archive.ics.uci.edu/ml/datasets/Concrete+Slump+Test   
+./Perceptron/data/bank_note : https://archive.ics.uci.edu/ml/datasets/banknote+authentication 
 
 # Execute   
 
-HW1 result: use run.sh under ./DecisionTree  (python3 Results.py under this folder)    
-HW2 result 2&3: use run.sh under ./EnsembleLearning  (python3 Results.py under this folder)      
-HW2 result 4: use run.sh under ./LinearRegression  (python3 Results.py under this folder)    
+HW1 result: use run.sh under ./DecisionTree  (`python3 Results.py' under this folder)    
+HW2 result 2&3: use run.sh under ./EnsembleLearning  (`python3 Results.py' under this folder)      
+HW2 result 4: use run.sh under ./LinearRegression  (`python3 Results.py' under this folder)  
+HW3 result 2: use run.sh under ./Perceptron  (`python3 Results.py' under this folder)        
