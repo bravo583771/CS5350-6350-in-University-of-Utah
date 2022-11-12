@@ -3,12 +3,11 @@
 
 # Python and libaries
 
-python==3.9.12
-numpy==1.21.5
-pandas==1.4.3
-scipy==1.7.3
-other libraries: jupyter notebook, pathlib, matplotlib
-
+python==3.9.12  
+numpy==1.21.5  
+pandas==1.4.3  
+scipy==1.7.3  
+other libraries: jupyter notebook, pathlib, matplotlib  
 
 # Data  
 
